@@ -42,6 +42,14 @@ func (a *Ace) createContext(w http.ResponseWriter, r *http.Request) *C {
 	return c
 }
 
+func (a *Ace) CreateContext(w http.ResponseWriter, r *http.Request) * C {
+	return a.createContext(w, r)
+}
+
+func (a *Ace) ReleaseContext(c *C) {
+	a.pool.Put(c)
+}
+
 //JSON response with application/json; charset=UTF-8 Content type
 func (c *C) JSON(status int, v interface{}) {
 	c.Writer.Header().Set(contentType, "application/json; charset=UTF-8")
